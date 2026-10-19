@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme {
+    /* Custom Font Family */
+    --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+
+    /* Custom Color Palette */
+    --color-ink: #1c1c1e;
+    --color-indigo-task: #2a3194; /* Note: kebab-case is recommended over camelCase in CSS variables */
+    --color-crimson: #a31f3d;
+    --color-blush: #f8eaed;
+    --color-leaf: #8cb34a;
+    --color-denim: #2f5b99;
+    --color-brick: #a33a2e;
+}
