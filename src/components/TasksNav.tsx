@@ -1,6 +1,7 @@
 import {type Dispatch, type JSX, type SetStateAction} from "react";
+import type {Filter} from '../types'
 
-export default function TasksNav({ filter, setFilter }: { filter: string; setFilter: Dispatch<SetStateAction<string>> }): JSX.Element {
+export default function TasksNav({ filter, setFilter }: { filter: Filter; setFilter: Dispatch<SetStateAction<Filter>> }): JSX.Element {
     return (
         <nav aria-label="Filter tasks" className="mt-8 flex justify-center">
             <div className="inline-flex border border-neutral-200 rounded-sm overflow-hidden">

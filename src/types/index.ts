@@ -5,3 +5,5 @@ export type Task =
         description: string,
         isCompleted: boolean,
     }
+
+export type Filter = '' | 'done' | 'not done'

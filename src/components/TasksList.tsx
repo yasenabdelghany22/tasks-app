@@ -1,20 +1,20 @@
 import TaskList from './TaskList.tsx'
 import {useTasks} from "../context/TasksProvider.tsx";
+import type {Filter, Task} from '../types'
 
-export default function TasksList({ filter }: {filter: string }) {
+const filters: Record<Filter, (task: Task) => boolean> = {
+    '': () => true,
+    'done': (task) => task.isCompleted,
+    'not done': (task) => !task.isCompleted,
+}
+
+export default function TasksList({ filter }: { filter: Filter }) {
     const { tasks } = useTasks()
     return (
         <ul className="mt-12 space-y-10">
-            {tasks.filter((task) => {
-                if (filter === '') {
-                    return task
-                }else if (filter === 'done') {
-                    return task.isCompleted
-                }else {
-                    return !task.isCompleted
-                }
-            })
-                .map((task) => (<TaskList key={task.id} task={task} />))}
+            {tasks.filter(filters[filter]).map((task) => (
+                <TaskList key={task.id} task={task} />
+            ))}
         </ul>
     )
 }
