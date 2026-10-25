@@ -1,8 +1,26 @@
+import {useState} from "react";
+import {useTasks} from "../context/TasksProvider.tsx";
+import { v4 as uuid4 } from 'uuid';
+
 export default function TasksForm() {
+    const [newTask, setNewTask] = useState("");
+    const { tasks, setTasks } = useTasks()
     return (
         <form
             className="mt-10 flex flex-col-reverse sm:flex-row-reverse gap-4 sm:gap-5"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+                e.preventDefault()
+                if (newTask === "") {
+                    return;
+                }
+                setTasks([...tasks, {
+                    id: uuid4(),
+                    name: newTask,
+                    description: "",
+                    isCompleted: false
+                }])
+                setNewTask("");
+            }}
         >
             <button
                 type="submit"
@@ -13,6 +31,8 @@ export default function TasksForm() {
             <label className="flex-1">
                 <span className="sr-only">Task title</span>
                 <input
+                    value={newTask}
+                    onChange={(e) => {setNewTask(e.target.value)}}
                     type="text"
                     placeholder="Task title"
                     className="w-full h-[78px] rounded-sm border border-neutral-200 px-5 text-base font-light placeholder:text-neutral-400 focus:outline focus:outline-2 focus:outline-crimson"
