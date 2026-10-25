@@ -23,8 +23,9 @@ export default function TasksForm() {
             }}
         >
             <button
+                disabled={newTask === ""}
                 type="submit"
-                className="sm:w-[34%] h-[78px] rounded-sm bg-crimson text-white text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson"
+                className="sm:w-[34%] h-[78px] rounded-sm bg-crimson text-white text-sm font-medium disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson"
             >
                 Add
             </button>
