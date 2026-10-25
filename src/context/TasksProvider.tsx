@@ -2,11 +2,12 @@ import {
     createContext,
     type Dispatch,
     type ReactNode,
-    type SetStateAction, use,
+    type SetStateAction,
+    use,
     useMemo,
 } from 'react'
 import type { Task } from '../types'
-import useLocalStorage from "../hooks/LocalStorage.tsx";
+import useLocalStorage from '../hooks/LocalStorage.tsx'
 
 const TasksContext = createContext<{
     tasks: Task[]
@@ -34,14 +35,12 @@ export default function TasksProvider({ children }: { children: ReactNode }) {
     //         isCompleted: false
     //     }
     // ])
-    const [tasks, setTasks] = useLocalStorage<Task[]>("tasks", []);
+    const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [])
 
-    const value = useMemo(() => ({ tasks, setTasks }), [tasks])
+    const value = useMemo(() => ({ tasks, setTasks }), [setTasks, tasks])
 
     return (
-        <TasksContext.Provider value={value}>
-            {children}
-        </TasksContext.Provider>
+        <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
     )
 }
 

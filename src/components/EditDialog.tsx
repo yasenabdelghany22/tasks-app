@@ -1,16 +1,20 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import type {Task} from "../types";
-import {useState} from "react";
-import {useTasks} from "../context/TasksProvider.tsx";
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import TextField from '@mui/material/TextField'
+import type { Task } from '../types'
+import { useState } from 'react'
+import { useTasks } from '../context/TasksProvider.tsx'
 
-export default function EditDialog({open, setOpen, task} : {
-    open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+export default function EditDialog({
+    open,
+    setOpen,
+    task,
+}: {
+    open: boolean
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
     task: Task
 }) {
     const [name, setName] = useState(task.name)
@@ -48,10 +52,20 @@ export default function EditDialog({open, setOpen, task} : {
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={() => {
-                    setTasks(tasks.map((t) => t.id === task.id ? { ...t, name, description } : t))
-                    setOpen(false)
-                }}>Save</Button>
+                <Button
+                    onClick={() => {
+                        setTasks(
+                            tasks.map((t) =>
+                                t.id === task.id
+                                    ? { ...t, name, description }
+                                    : t,
+                            ),
+                        )
+                        setOpen(false)
+                    }}
+                >
+                    Save
+                </Button>
             </DialogActions>
         </Dialog>
     )
