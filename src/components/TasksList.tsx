@@ -3,7 +3,7 @@ import { useTasks } from '../context/TasksProvider.tsx'
 import type { Filter, Task } from '../types'
 import DeleteDialogAlert from './DeleteDialogAlert.tsx'
 import EditDialog from './EditDialog.tsx'
-import {useState} from "react";
+import { useState } from 'react'
 
 const filters: Record<Filter, (task: Task) => boolean> = {
     '': () => true,

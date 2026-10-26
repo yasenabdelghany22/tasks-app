@@ -5,12 +5,16 @@ import type { Task } from '../types'
 import { useTasks } from '../context/TasksProvider.tsx'
 import { Done } from '@mui/icons-material'
 
-export default function TaskList({ task, openDeleteDialog, openEditDialog }: {
-    task: Task,
-    openDeleteDialog: (task: Task) => void,
-    openEditDialog: (task: Task) => void,
+export default function TaskList({
+    task,
+    openDeleteDialog,
+    openEditDialog,
+}: {
+    task: Task
+    openDeleteDialog: (task: Task) => void
+    openEditDialog: (task: Task) => void
 }) {
-    const { tasks, setTasks } = useTasks()
+    const { dispatch } = useTasks()
 
     return (
         <li className="flex items-center justify-between gap-4 bg-indigo-task text-white rounded-sm px-5 py-5 min-h-[100px]">
@@ -27,13 +31,7 @@ export default function TaskList({ task, openDeleteDialog, openEditDialog }: {
             <div className="flex items-center gap-4 shrink-0">
                 <button
                     onClick={() => {
-                        setTasks(
-                            tasks.map((t) =>
-                                t.id === task.id
-                                    ? { ...t, isCompleted: !t.isCompleted }
-                                    : t,
-                            ),
-                        )
+                        dispatch({ type: 'TOGGLE_COMPLETED', payload: task })
                     }}
                     aria-label="Mark as done"
                     className={`grid place-items-center w-14 h-14 rounded-full border-[3px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${

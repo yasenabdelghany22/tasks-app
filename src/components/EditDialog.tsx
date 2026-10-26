@@ -19,7 +19,7 @@ export default function EditDialog({
 }) {
     const [name, setName] = useState(task.name)
     const [description, setDescription] = useState(task.description)
-    const { tasks, setTasks } = useTasks()
+    const { dispatch } = useTasks()
     return (
         <Dialog
             open={open}
@@ -54,13 +54,10 @@ export default function EditDialog({
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
                 <Button
                     onClick={() => {
-                        setTasks(
-                            tasks.map((t) =>
-                                t.id === task.id
-                                    ? { ...t, name, description }
-                                    : t,
-                            ),
-                        )
+                        dispatch({
+                            type: 'UPDATE_TASK',
+                            payload: { id: task.id, name, description },
+                        })
                         setOpen(false)
                     }}
                 >

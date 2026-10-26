@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useTasks } from '../context/TasksProvider.tsx'
-import { v4 as uuid4 } from 'uuid'
 
 export default function TasksForm() {
     const [newTask, setNewTask] = useState('')
-    const { tasks, setTasks } = useTasks()
+    const { dispatch } = useTasks()
     return (
         <form
             className="mt-10 flex flex-col-reverse sm:flex-row-reverse gap-4 sm:gap-5"
@@ -13,15 +12,7 @@ export default function TasksForm() {
                 if (newTask === '') {
                     return
                 }
-                setTasks([
-                    ...tasks,
-                    {
-                        id: uuid4(),
-                        name: newTask,
-                        description: '',
-                        isCompleted: false,
-                    },
-                ])
+                dispatch({ type: 'ADD_TASK', payload: newTask })
                 setNewTask('')
             }}
         >

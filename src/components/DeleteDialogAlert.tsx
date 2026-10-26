@@ -16,7 +16,7 @@ export default function DeleteDialogAlert({
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     task: Task
 }) {
-    const { tasks, setTasks } = useTasks()
+    const { dispatch } = useTasks()
     return (
         <Dialog
             open={open}
@@ -37,7 +37,7 @@ export default function DeleteDialogAlert({
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
                 <Button
                     onClick={() => {
-                        setTasks(tasks.filter((t) => t.id !== task.id))
+                        dispatch({ type: 'DELETE_TASK', payload: task })
                         setOpen(false)
                     }}
                     color="error"

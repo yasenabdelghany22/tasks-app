@@ -1,18 +1,26 @@
-import { useState, useEffect, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, type Dispatch, useReducer } from 'react'
+import TodosReducer from '../reducers/TodosReducer.tsx'
 
-function useLocalStorage<T>(
+type State = Parameters<typeof TodosReducer>[0]
+type Action = Parameters<typeof TodosReducer>[1]
+
+function useLocalStorage(
     key: string,
-    initialValue: T,
-): [T, Dispatch<SetStateAction<T>>] {
-    const [value, setValue] = useState<T>(() => {
-        if (typeof window === 'undefined') return initialValue
-        try {
-            const saved = window.localStorage.getItem(key)
-            return saved !== null ? (JSON.parse(saved) as T) : initialValue
-        } catch {
-            return initialValue
-        }
-    })
+    initialValue: State,
+): [State, Dispatch<Action>] {
+    const [value, dispatch] = useReducer(
+        TodosReducer,
+        initialValue,
+        (initial: State): State => {
+            if (typeof window === 'undefined') return initial
+            try {
+                const saved = window.localStorage.getItem(key)
+                return saved !== null ? (JSON.parse(saved) as State) : initial
+            } catch {
+                return initial
+            }
+        },
+    )
 
     useEffect(() => {
         try {
@@ -22,7 +30,7 @@ function useLocalStorage<T>(
         }
     }, [key, value])
 
-    return [value, setValue]
+    return [value, dispatch]
 }
 
 export default useLocalStorage
